@@ -35,22 +35,21 @@ void menu_principal();
 void menu_jugar();
 void menu_instrucciones();
 void menu_creditos();
-void menu_score();
+void menu_score(string nombre[5],string recor[5]);
 
-int main()
-{
-   menu_principal();
 
-   return 0;
-}
 
 void menu_principal()
 {
    bool repite = true;
    int opcion;
-
-   // Titulo del menú y nombres de las opciones
-   const char *titulo = "                                 Crazy Climber MENU";
+    string nombre[5],recor[5];
+    for(int x=0;x<5;x++){
+        nombre[x]=" ";
+        recor[x]=" ";
+   }
+   // Titulo del menÃº y nombres de las opciones
+   const char *titulo = "                                                                                                                                 \n                                                                                                                                 \n    //   ) )                                               //   ) )                                                              \n   //            __        ___     ___                    //           //     ( )      _   __       / __        ___        __    \n  //           //  ) )   //   ) )    / /    //   / /     //           //     / /     // ) )  ) )   //   ) )   //___) )   //  ) ) \n //           //        //   / /    / /    ((___/ /     //           //     / /     // / /  / /   //   / /   //         //       \n((____/ /    //        ((___( (    / /__       / /     ((____/ /    //     / /     // / /  / /   ((___/ /   ((____     //        ";
    const char *opciones[] = {"Jugar", "Instrucciones", "Creditos", "Score", "Salir"};
    int n = 5;  // Numero de opciones
 
@@ -72,7 +71,7 @@ void menu_principal()
             break;
 
          case 4:
-            menu_score();
+            menu_score(nombre,recor);
             break;
 
          case 5:
@@ -90,8 +89,8 @@ void menu_jugar()
     bool repite = true;
     int opcion;
 
-   // Titulo del menú y nombres de las opciones
-    const char *titulo = "Jugar!!";
+   // Titulo del menÃº y nombres de las opciones
+    const char *titulo = "\n          / /     //   / /     //   ) )     // | |     //   ) ) \n         / /     //   / /     //           //__| |    //___/ /  \n        / /     //   / /     //  ____     / ___  |   / ___ (    \n       / /     //   / /     //    / /    //    | |  //   | |    \n ((___/ /     ((___/ /     ((____/ /    //     | | //    | |    ";
     const char *opciones[] = {"Jugar", "Regresar"};
     int n = 2;  // Numero de opciones
 
@@ -118,8 +117,8 @@ void menu_instrucciones()
     bool repite = true;
     int opcion;
 
-   // Titulo del menú y nombres de las opciones
-    const char *titulo = "INSTRUCCIONES!!";
+   // Titulo del menÃº y nombres de las opciones
+    const char *titulo = "                                                    \n                                                    \n    //    / /     //   ) ) ||   / |  / /      __    \n   //___ / /     //   / /  ||  /  | / /     ((  ) ) \n  / ___   /     //   / /   || / /||/ /         / /  \n //    / /     //   / /    ||/ / |  /         ( /   \n//    / /     ((___/ /     |  /  | /          ()    ";
     const char *opciones[] = {"Instrucciones", "Regresar"};
     int n = 2;  // Numero de opciones
 
@@ -129,8 +128,9 @@ void menu_instrucciones()
         system("cls");
         switch (opcion) {
             case 1:
-                cout << "Press F to pray respects";
-                cout <<endl<< "Casual W A S D ";
+                cout<<titulo<<endl;
+                gotoxy(10,8);cout << "\n\t\tI N S T R U C I O N E S \n\n";
+                gotoxy(10,10);cout<<"\n\tBien venido a crazy climber\n\n\tPara pasar el nivel es necesario llegar a la asotea del edifico\n\t1.-Para eso Preciona W para escalar\n\t2.-presiona A o D para moverte hacia los lados Isquierda y derecha respectivamente\n\tMientras escalas, ten cuidado con los objetos que caen\n\tde las ventanas de los inquilinos, pues estas haran que caigas y pierdas una vida\n\tTienes tres vidas para lograrlo\n\tuna ves llegues a la azotea habras ganado,\n\n\tPresciona a para regresar.\n";
                 system("pause>nul");
                 break;
 
@@ -147,8 +147,8 @@ void menu_creditos()
     bool repite = true;
     int opcion;
 
-   // Titulo del menú y nombres de las opciones
-    const char *titulo = "CREDITOS!!";
+   // Titulo del menÃº y nombres de las opciones
+    const char *titulo = "                                                                                                \n                                                                                                \n    /|    //| |     // | |     //   / /     //   / /   //    ) )       //   ) ) \\    / /     \n   //|   // | |    //__| |    //__ / /     //____     //    / /       //___/ /   \\  / /      \n  // |  //  | |   / ___  |   //__  /      / ____     //    / /       / __  (      \\/ /    () \n //  | //   | |  //    | |  //   ) )     //         //    / /       //    ) )      / /        \n//   |//    | | //     | | //     ) )   //____/ /  //____/ /       //____/ /      / /     //  ";
     const char *opciones[] = {"Creditos", "Regresar"};
     int n = 2;  // Numero de opciones
 
@@ -158,12 +158,8 @@ void menu_creditos()
         system("cls");
         switch (opcion) {
             case 1:
-                cout<< "Gracias por jugar nuestro grandiosa version de Crazy Climber :D"<<endl;
-                cout << "Desarrollado como proyecto final para la carrera de Ing. en desarrollo de software de la UABCS"<<endl;
-                cout<< "Integrantes del equipo: "<<endl;
-                cout <<endl<< "Angel Aviles"<<endl;
-                cout <<endl<< "Brenda Gonzalez"<<endl;
-                cout <<endl<< "Juan Pedrin"<<endl;
+                cout<<titulo<<endl;
+                cout<< "\n\t\tGracias por jugar nuestro grandiosa version de Crazy Climber :D\n\n\t\tDesarrollado como proyecto final para el curso de programacion I\n\n\t\tIntegrantes del equipo: \n\t\tAngel Aviles\n\t\tBrenda Gonzalez\n\t\tJuan Pedrin"<<endl;
                 system("pause>nul");
                 break;
 
@@ -175,13 +171,13 @@ void menu_creditos()
     } while(repite);
 }
 
-void menu_score()
+void menu_score(string nombre[5],string recor[5])
 {
     bool repite = true;
     int opcion;
 
-   // Titulo del menú y nombres de las opciones
-    const char *titulo = "SCORE!!";
+   // Titulo del menÃº y nombres de las opciones
+    const char *titulo = "                                                                              \n                                                                              \n    //   ) )     //   ) )     //   ) )     //   ) )     //   / /     //   ) ) \n   ((           //           //   / /     //___/ /     //____       ((        \n     ))        //           //   / /     / ___ (      / ____          ))      \n       ) )    //           //   / /     //   | |     //                 ) )   \n((___ / /    ((____/ /    ((___/ /     //    | |    //____/ /    ((___ / /    ";
     const char *opciones[] = {"score", "Regresar"};
     int n = 2;  // Numero de opciones
 
@@ -191,9 +187,11 @@ void menu_score()
         system("cls");
         switch (opcion) {
             case 1:
-                cout << "1.- CJ: 532200 pts."<<endl;
-                cout << "2.-Rem: 514190 pts."<<endl;
-                cout << "3.-Manuel: 482997 pts."<<endl;
+                cout<<titulo<<endl;
+                gotoxy(10,8);cout<<"\n\tNombre =  Puntuacion\n";
+                for(int x=0;x<5;x++){
+                    gotoxy(10,9+x);cout<<"\n\t"<<nombre[x]<<" = "<<recor[x];
+                }
                 system("pause>nul");
                 break;
 
@@ -213,17 +211,18 @@ int menu(const char titulo[], const char *opciones[], int n)
 
    bool repite = true; // controla el bucle para regresar a la rutina que lo llamo, al presionar ENTER
 
+
    do {
       system("cls");
-      system("color 0e");
-      gotoxy(5, 3 + opcionSeleccionada); cout << "                                        ==>" << endl;
+      system("color 8f");
+      gotoxy(10, 13 + opcionSeleccionada); cout << "=>" << endl;
 
-      // Imprime el título del menú
-      gotoxy(15, 2); cout << titulo;
+      // Imprime el tÃ­tulo del menÃº
+      gotoxy(0,0); cout << titulo;
 
-      // Imprime las opciones del menú
+      // Imprime las opciones del menÃº
       for (int i = 0; i < n; ++i) {
-         gotoxy(50, 4 + i); cout << i + 1 << ") " << opciones[i];
+         gotoxy(12, 14 + i); cout << i + 1 << ") " << opciones[i];
       }
 
       // Solo permite que se ingrese ARRIBA, ABAJO o ENTER
@@ -261,4 +260,10 @@ int menu(const char titulo[], const char *opciones[], int n)
    } while (repite);
 
    return opcionSeleccionada;
+}
+int main()
+{
+   menu_principal();
+
+   return 0;
 }

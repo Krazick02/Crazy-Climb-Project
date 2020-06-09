@@ -72,7 +72,7 @@ void menu_principal()
         nombre[x]=" ";
         recor[x]=" ";
    }
-   // Titulo del menú y nombres de las opciones
+   // Titulo del menÃº y nombres de las opciones
    const char *titulo = "                                                                                                                                 \n                                                                                                                                 \n    //   ) )                                               //   ) )                                                              \n   //            __        ___     ___                    //           //     ( )      _   __       / __        ___        __    \n  //           //  ) )   //   ) )    / /    //   / /     //           //     / /     // ) )  ) )   //   ) )   //___) )   //  ) ) \n //           //        //   / /    / /    ((___/ /     //           //     / /     // / /  / /   //   / /   //         //       \n((____/ /    //        ((___( (    / /__       / /     ((____/ /    //     / /     // / /  / /   ((___/ /   ((____     //        ";
    const char *opciones[] = {"Jugar", "Instrucciones", "Creditos", "Score", "Salir"};
    int n = 5;  // Numero de opciones
@@ -113,7 +113,7 @@ void menu_jugar()
     bool repite = true;
     int opcion;
 
-   // Titulo del menú y nombres de las opciones
+   // Titulo del menÃº y nombres de las opciones
     const char *titulo = "\n          / /     //   / /     //   ) )     // | |     //   ) ) \n         / /     //   / /     //           //__| |    //___/ /  \n        / /     //   / /     //  ____     / ___  |   / ___ (    \n       / /     //   / /     //    / /    //    | |  //   | |    \n ((___/ /     ((___/ /     ((____/ /    //     | | //    | |    ";
     const char *opciones[] = {"Jugar", "Regresar"};
     int n = 2;  // Numero de opciones
@@ -139,8 +139,10 @@ void menu_jugar()
                 int contx4[38]={0}; int conty4[38]={0};
                 bool power=true;
                 int tecla;
+                int aux[pisos][ancho];
+                int trampa=0;
                 while(power){
-                    int aux[pisos][ancho];
+
                     char mapilla[pisos][ancho];
                     //Ciclo para imprimir un mapa.
 
@@ -158,8 +160,13 @@ void menu_jugar()
                             }
 
                             if(i==x && j==y){
-                                mapilla[i][j] = '*'; //Debería mandar la posicion del jugador a mapilla
-                                aux[i][j]=1;
+                                mapilla[i][j] = '*'; //DeberÃ­a mandar la posicion del jugador a mapilla
+                                if(aux[i][j]==2){
+                                    trampa=3;
+                                }else{
+                                    trampa=0;
+                                }
+
                             }else if(i==pisos-1 && j==0){    //Imprime la esquinita inferior izquierda
                                 mapilla[i][j] = char(200);
                                 aux[i][j]=1;
@@ -186,11 +193,14 @@ void menu_jugar()
                             {
                                 mapilla[i][j] = char(219);
                                 contx2[i]=contx[i]; conty2[i]=conty[i]; //Almacena las posiciones de las ventanas para el sig if
-                                aux[i][j]=1;
+                                aux[i][j]=2;
+                                //trampa=3;
                             }else if(i>=3 && i<(pisos-contx2[i]) && j==(ancho-conty2[i]) && ((cont%11==0)==false)){ //Imprime las ventanas
                                 mapilla[i][j] = char(219);
                                 contx2[i]=contx[i]; conty2[i]=conty[i];
-                                aux[i][j]=1;
+                                aux[i][j]=2;
+                                //trampa=3;
+
                             }else{ //Imprime los espacios
                                 mapilla[i][j] = char(176);
                                 aux[i][j]=0;
@@ -207,25 +217,43 @@ void menu_jugar()
 
                      case ARRIBA:   // En caso que se presione ARRIBA
                          if(x!=1){
-                            x--; //Cuando disminuye la equis sube el asterisco.
+                            if(trampa==3){
+                                x=x+3;
+                            }else{
+                                x--;
+                            }
+                             //Cuando disminuye la equis sube el asterisco.
                          }
                         break;
 
                      case ABAJO: // En caso que se presione ABAJO
                         if(x!=pisos-2){
-                            x++; //Cuando aumenta la equis baja el asterisco.
+                            if(trampa==3){
+                                x=x+3;
+                            }else{
+                                x++;
+                            } //Cuando aumenta la equis baja el asterisco.
                         }
                         break;
 
                      case IZQUIERDA:
                          if(y!=1){
-                            y--;
+                            if(trampa==3){
+                                x=x+3;
+                                y--;
+                            }else{
+                                y--;
+                            }
                          }
                         break;
 
                      case DERECHA:
                          if(y!=ancho-2){
-                            y++;
+                            if(trampa==3){
+                                x=x+3;
+                            }else{
+                                y++;
+                            }
                          }
                         break;
 
@@ -248,6 +276,8 @@ void menu_jugar()
                 x=pisos-2;
                     while(power){
                     char mapilla[pisos][ancho];
+                    int aux[pisos][ancho];
+                    int trampa=0;
                     //Ciclo para imprimir un mapa.
 
                     cout<<endl<<endl;
@@ -264,8 +294,12 @@ void menu_jugar()
                             }
 
                             if(i==x && j==y){
-                                mapilla[i][j] = '*'; //Debería mandar la posicion del jugador a mapilla
-
+                                mapilla[i][j] = '*'; //DeberÃ­a mandar la posicion del jugador a mapilla
+                                if(aux[i][j]==2){
+                                    trampa=3;
+                                }else{
+                                    trampa=0;
+                                }
                             }else if(i==0 && j==0 || i==0 && j==23){    //Imprime la esquinita superior izquierda
                                 mapilla[i][j] = char(201);
 
@@ -303,10 +337,12 @@ void menu_jugar()
                             {
                                 mapilla[i][j] = char(219);
                                 contx2[i]=contx[i]; conty2[i]=conty[i]; //Almacena las posiciones de las ventanas para el sig if
+                                aux[i][j]=2; //las trampitas hehe
 
                             }else if(i>=3 && i<(pisos-contx2[i]) && j==(ancho-conty2[i]) && ((cont%11==0)==false)){ //Imprime las ventanas
                                 mapilla[i][j] = char(219);
                                 contx2[i]=contx[i]; conty2[i]=conty[i];
+                                aux[i][j]=2;//mas trampitas hehe
 
                             }else {
                                 mapilla[i][j] = char(176); //Imprime los espacios rellenos entre los edificios
@@ -323,25 +359,42 @@ void menu_jugar()
 
                      case ARRIBA:   // En caso que se presione ARRIBA
                          if(x!=1 && (x==21 && y>13 && y <24)==false){
-                            x--; //Cuando disminuye la equis sube el asterisco.
+                            if(trampa==3){
+                                x=x+3;
+                            }else{
+                                x--;
+                            } //Cuando disminuye la equis sube el asterisco.
                          }
                         break;
 
                      case ABAJO: // En caso que se presione ABAJO
                         if(x!=pisos-2){
-                            x++; //Cuando aumenta la equis baja el asterisco.
+                            if(trampa==3){
+                                x=x+3;
+                            }else{
+                                x++;
+                            }  //Cuando aumenta la equis baja el asterisco.
                         }
                         break;
 
                      case IZQUIERDA:
                          if(y!=1 && (x>=0 && x<21 && y==24)==false){
-                            y--;
+                            if(trampa==3){
+                                x=x+3;
+                                y--;
+                            }else{
+                                y--;
+                            }
                          }
                         break;
 
                      case DERECHA:
                          if(y!=ancho-2 && (x>=0 && x<21 && y==13)==false){
-                            y++;
+                            if(trampa==3){
+                                x=x+3;
+                            }else{
+                                y++;
+                            }
                          }
                         break;
 
@@ -374,7 +427,7 @@ void menu_instrucciones()
     bool repite = true;
     int opcion;
 
-   // Titulo del menú y nombres de las opciones
+   // Titulo del menÃº y nombres de las opciones
     const char *titulo = "                                                    \n                                                    \n    //    / /     //   ) ) ||   / |  / /      __    \n   //___ / /     //   / /  ||  /  | / /     ((  ) ) \n  / ___   /     //   / /   || / /||/ /         / /  \n //    / /     //   / /    ||/ / |  /         ( /   \n//    / /     ((___/ /     |  /  | /          ()    ";
     const char *opciones[] = {"Instrucciones", "Regresar"};
     int n = 2;  // Numero de opciones
@@ -404,7 +457,7 @@ void menu_creditos()
     bool repite = true;
     int opcion;
 
-   // Titulo del menú y nombres de las opciones
+   // Titulo del menÃº y nombres de las opciones
     const char *titulo = "                                                                                                \n                                                                                                \n    /|    //| |     // | |     //   / /     //   / /   //    ) )       //   ) ) \\    / /     \n   //|   // | |    //__| |    //__ / /     //____     //    / /       //___/ /   \\  / /      \n  // |  //  | |   / ___  |   //__  /      / ____     //    / /       / __  (      \\/ /    () \n //  | //   | |  //    | |  //   ) )     //         //    / /       //    ) )      / /        \n//   |//    | | //     | | //     ) )   //____/ /  //____/ /       //____/ /      / /     //  ";
     const char *opciones[] = {"Creditos", "Regresar"};
     int n = 2;  // Numero de opciones
@@ -433,7 +486,7 @@ void menu_score(string nombre[5],string recor[5])
     bool repite = true;
     int opcion;
 
-   // Titulo del menú y nombres de las opciones
+   // Titulo del menÃº y nombres de las opciones
     const char *titulo = "                                                                              \n                                                                              \n    //   ) )     //   ) )     //   ) )     //   ) )     //   / /     //   ) ) \n   ((           //           //   / /     //___/ /     //____       ((        \n     ))        //           //   / /     / ___ (      / ____          ))      \n       ) )    //           //   / /     //   | |     //                 ) )   \n((___ / /    ((____/ /    ((___/ /     //    | |    //____/ /    ((___ / /    ";
     const char *opciones[] = {"score", "Regresar"};
     int n = 2;  // Numero de opciones
@@ -474,10 +527,10 @@ int menu(const char titulo[], const char *opciones[], int n)
       system("color 8f");
       gotoxy(10, 13 + opcionSeleccionada); cout << "=>" << endl;
 
-      // Imprime el título del menú
+      // Imprime el tÃ­tulo del menÃº
       gotoxy(0,0); cout << titulo;
 
-      // Imprime las opciones del menú
+      // Imprime las opciones del menÃº
       for (int i = 0; i < n; ++i) {
          gotoxy(12, 14 + i); cout << i + 1 << ") " << opciones[i];
       }

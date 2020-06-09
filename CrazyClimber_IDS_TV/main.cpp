@@ -126,6 +126,7 @@ void menu_jugar()
             case 1:
                 {
                 ///////////////////////////////////////////////////////////////////////
+                int score=12000;
                 int pisos=30;
                 int ancho=38;
                 int a=0;
@@ -142,6 +143,9 @@ void menu_jugar()
                 int aux[pisos][ancho];
                 int trampa=0;
                 while(power){
+
+                    score=score-(cont*10);
+                    cout << "SCORE: "<<score<<" puntos."<<endl;
 
                     char mapilla[pisos][ancho];
                     //Ciclo para imprimir un mapa.
@@ -267,14 +271,24 @@ void menu_jugar()
                     cout << "SIGUIENTE NIVEL!(ingrese cualquier valor para continuar)";
                     cin >> a;
                     power = false;
+                  }else if(score<=0){
+                      power = false;
                   }
                   cont++;
 
                 }
                 //////////////////////////////////////////////////////////////////////////////////////////////
-                power = true;
+                if(score<=0){
+                    power = false;
+                    cout << endl <<"NOOB, juego terminado."<<endl;
+                    cin >> x;
+                }else{
+                    power = true;
+                }
                 x=pisos-2;
                     while(power){
+                    score=score-(cont*10);
+                    cout << "SCORE: "<<score<<" puntos."<<endl;
                     char mapilla[pisos][ancho];
                     int aux[pisos][ancho];
                     int trampa=0;
@@ -405,10 +419,14 @@ void menu_jugar()
                   system("cls");
                   if(x==1){
                     system("cls");
-                    cout << "Haz ganado!";
+                    cout << "Haz ganado!"<<endl;
+                    cout << "Tu Final Score fue de: "<<score<<" puntos. Felicidades!"<<endl;
                     cin >> x;
                     power = false;
-                  }
+                  }else if(score<=0){
+                    power = false;
+                    cout << endl <<"NOOB, juego terminado."<<endl;
+                }
                 }
             }
                 ///////////////////////////////////////////////////////////////////////

@@ -126,14 +126,30 @@ void menu_jugar()
             case 1:
                 {
                 ///////////////////////////////////////////////////////////////////////
-                int score=12000;
+                int dificultad;
+                cout << "                            ---Seleccione el tipo de dificultad--"<<endl<<endl;
+                cout << "1.- Facil.(Empiezas con 20k de puntos, raramente las ventanas oscilan)."<<endl<<endl;
+                cout << "2.- Normal.(Empiezas con 18k de puntos, las ventanas oscilan con regularidad)."<<endl<<endl;
+                cout << "3.- Pesadilla.(Empiezas con 15k de puntos, Absolute chaos)."<<endl<<endl;
+                cout << "Eleccion: ";
+                cin >> dificultad;
+                system("cls");
+                int score=0;
+                if(dificultad==1){
+                    score=20000;
+                }else if(dificultad==2){
+                    score=18000;
+                }else if(dificultad==3){
+                    score=15000;
+                }
+
                 int pisos=30;
                 int ancho=38;
                 int a=0;
                 int b=0;
                 int c=0;
                 int d=0;
-                int x=pisos-2,y=ancho-11,azarx=0,azary=0,cont=0;
+                int x=pisos-2,y=ancho-10,azarx=0,azary=0,cont=0;
                 int contx[38]={0}; int conty[38]={0};
                 int contx2[38]={0}; int conty2[38]={0};
                 int contx3[38]={0}; int conty3[38]={0};
@@ -154,13 +170,33 @@ void menu_jugar()
                     for (int i=0;i<pisos;i++){
                         for(int j=0;j<ancho;j++){
 
-                            if(cont==0 || cont%11==0){
+                            if(dificultad==1){
+                                if(cont==0 || cont%13==0){
                                 contx[j]=azar(a);
                                 conty[j]=azarb(b);
 
                                 contx3[j]=azarc(c);
                                 conty3[j]=azard(d);
 
+                            }
+                            }else if(dificultad==2){
+                                if(cont==0 || cont%11==0){
+                                contx[j]=azar(a);
+                                conty[j]=azarb(b);
+
+                                contx3[j]=azarc(c);
+                                conty3[j]=azard(d);
+
+                            }
+                            }else if(dificultad==3){
+                                if(cont==0 || cont%2==0){
+                                contx[j]=azar(a);
+                                conty[j]=azarb(b);
+
+                                contx3[j]=azarc(c);
+                                conty3[j]=azard(d);
+
+                            }
                             }
 
                             if(i==x && j==y){
@@ -193,13 +229,14 @@ void menu_jugar()
                                 mapilla[i][j] = char(186);
                                 aux[i][j]=1;
                             }else if(i>=3 && i<(pisos-contx[i]) && j==(ancho-conty[i]) || //Imprime las ventanas del edificio de la derecha
-                                     i>=3 && i<(pisos-contx[i]) && j==(conty[i]))
+                                     i>=3 && i<(pisos-contx[i]) && j==(conty[i]) &&
+                                     (i==x && j==y)==false)
                             {
                                 mapilla[i][j] = char(219);
                                 contx2[i]=contx[i]; conty2[i]=conty[i]; //Almacena las posiciones de las ventanas para el sig if
                                 aux[i][j]=2;
                                 //trampa=3;
-                            }else if(i>=3 && i<(pisos-contx2[i]) && j==(ancho-conty2[i]) && ((cont%11==0)==false)){ //Imprime las ventanas
+                            }else if(i>=3 && i<(pisos-contx2[i]) && j==(ancho-conty2[i]) && ((cont%11==0)==false ) && (i==x && j==y)==false){ //Imprime las ventanas
                                 mapilla[i][j] = char(219);
                                 contx2[i]=contx[i]; conty2[i]=conty[i];
                                 aux[i][j]=2;
@@ -268,7 +305,7 @@ void menu_jugar()
                   system("cls");
                   if(x==1){
                     system("cls");
-                    cout << "SIGUIENTE NIVEL!(ingrese cualquier valor para continuar)";
+                    cout <<endl<<endl<<"SIGUIENTE NIVEL!(ingrese cualquier valor para continuar)";
                     cin >> a;
                     power = false;
                   }else if(score<=0){
@@ -299,12 +336,33 @@ void menu_jugar()
                     for (int i=0;i<pisos;i++){
                         for(int j=0;j<ancho;j++){
 
-                            if(cont==0 || cont%11==0){
+                            if(dificultad==1){
+                                if(cont==0 || cont%13==0){
                                 contx[j]=azar(a);
                                 conty[j]=azarb(b);
 
                                 contx3[j]=azarc(c);
                                 conty3[j]=azard(d);
+
+                            }
+                            }else if(dificultad==2){
+                                if(cont==0 || cont%11==0 || cont%23==0 || cont%31==0){
+                                contx[j]=azar(a);
+                                conty[j]=azarb(b);
+
+                                contx3[j]=azarc(c);
+                                conty3[j]=azard(d);
+
+                            }
+                            }else if(dificultad==3){
+                                if(cont==0 || cont%2==0){
+                                contx[j]=azar(a);
+                                conty[j]=azarb(b);
+
+                                contx3[j]=azarc(c);
+                                conty3[j]=azard(d);
+
+                            }
                             }
 
                             if(i==x && j==y){
@@ -347,13 +405,15 @@ void menu_jugar()
                                 mapilla[i][j] = ' ';
 
                             }else if(i>=3 && i<(pisos-contx[i]) && j==(ancho-conty[i]) || //Imprime las ventanas del edificio de la derecha
-                                     i>=3 && i<(pisos-contx[i]) && j==(conty[i]))
+                                     i>=3 && i<(pisos-contx[i]) && j==(conty[i]) &&
+                                     (i==x && j==y)==false)
                             {
                                 mapilla[i][j] = char(219);
                                 contx2[i]=contx[i]; conty2[i]=conty[i]; //Almacena las posiciones de las ventanas para el sig if
                                 aux[i][j]=2; //las trampitas hehe
 
-                            }else if(i>=3 && i<(pisos-contx2[i]) && j==(ancho-conty2[i]) && ((cont%11==0)==false)){ //Imprime las ventanas
+                            }else if(i>=3 && i<(pisos-contx2[i]) && j==(ancho-conty2[i]) && ((cont%11==0)==false)&&
+                                     (i==x && j==y)==false){ //Imprime las ventanas
                                 mapilla[i][j] = char(219);
                                 contx2[i]=contx[i]; conty2[i]=conty[i];
                                 aux[i][j]=2;//mas trampitas hehe
@@ -426,6 +486,7 @@ void menu_jugar()
                   }else if(score<=0){
                     power = false;
                     cout << endl <<"NOOB, juego terminado."<<endl;
+                    cin >> x;
                 }
                 }
             }
@@ -458,7 +519,7 @@ void menu_instrucciones()
             case 1:
                 cout<<titulo<<endl;
                 gotoxy(10,8);cout << "\n\t\tI N S T R U C I O N E S \n\n";
-                gotoxy(10,10);cout<<"\n\tBien venido a crazy climber\n\n\tPara pasar el nivel es necesario llegar a la asotea del edifico\n\t1.-Para eso Preciona W para escalar\n\t2.-presiona A o D para moverte hacia los lados Isquierda y derecha respectivamente\n\tMientras escalas, ten cuidado con los objetos que caen\n\tde las ventanas de los inquilinos, pues estas haran que caigas y pierdas una vida\n\tTienes tres vidas para lograrlo\n\tuna ves llegues a la azotea habras ganado,\n\n\tPresciona a para regresar.\n";
+                gotoxy(10,10);cout<<"\n\tBien venido a crazy climber\n\n\tPara pasar el nivel es necesario llegar a la asotea del edifico\n\t1.-Para eso Preciona W para escalar\n\t2.-presiona A o D para moverte hacia los lados Isquierda y derecha respectivamente\n\t3.-presiona S para bajar\n\t\n\tMientras escalas, ten cuidado con las ventanas,\n\tpues estas haran que caigas y pierdas tu valioso SCORE\n\tTienes una cantidad limitada de SCORE lograrlo\n\tuna ves llegues a la azotea habras ganado.\n\n\tPresciona enter para regresar.\n";
                 system("pause>nul");
                 break;
 
@@ -546,7 +607,7 @@ int menu(const char titulo[], const char *opciones[], int n)
       gotoxy(10, 13 + opcionSeleccionada); cout << "=>" << endl;
 
       // Imprime el título del menú
-      gotoxy(0,0); cout << titulo;
+      gotoxy(0,0); cout << titulo<<endl;
 
       // Imprime las opciones del menú
       for (int i = 0; i < n; ++i) {
